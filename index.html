@@ -83,7 +83,7 @@
   const displayWeatherForecast = (weatherData) => {
     const forecastDiv = document.getElementById("weather-forecast");
     forecasts = weatherData.forecast.forecastday;
-
+    console.log(forecasts)
     let listOfElement = "";
     for (let i = 0; i < forecasts.length; i++) {
 
@@ -102,9 +102,9 @@
         <h2>Perkiraan Cuaca</h2>
         <p style="text">"${forecastData.condition}"</p>
         <img src="https:${forecastData.conditionImage}" class="weather-image">
-        <p>temperature: ${forecastData.temperature}℃</p>
-        <p>humidity: ${forecastData.humidity}%</p>
-        <p>(updated at ${forecastData.time})</p>
+        <p>temperature: ${forecastData.avg_temp}℃</p>
+        <p>humidity: ${forecastData.avg_humidity}%</p>
+        <p>(updated at ${forecastData.date})</p>
       </div>
       `;
 
@@ -116,12 +116,15 @@
 
   const searchWeather = async () => {
     const cityName = document.getElementById("city-name").value;
+        if (!cityName) {
+        return null;
+      }
     const weatherData = await getWeatherForecast(cityName);
 
     displayCityName(weatherData);
     displayCurrentWeather(weatherData);
     displayWeatherForecast(weatherData);
-  }  
+  }
 </script>
 
 </html>
